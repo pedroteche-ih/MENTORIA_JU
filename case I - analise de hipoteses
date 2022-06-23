@@ -1,0 +1,52 @@
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 113409 entries, 0 to 113408
+Data columns (total 29 columns):
+ #   Column                          Non-Null Count   Dtype  
+---  ------                          --------------   -----  
+ 0   hotel                           113409 non-null  object - 'City Hotel', 'Resort'
+ 1   is_cancelled                    113409 non-null  int64 - variável resposta (reserva foi cancelada?) 
+ 2   lead_time                       113409 non-null  int64 - Lead time *
+
+  Variável mais critica (literatura do assunto)
+
+ 3   stays_in_weekend_nights         113409 non-null  int64 - diarias em fds
+ 4   stays_in_week_nights            113409 non-null  int64 - diarias em dias uteis
+
+ 5   adults                          113409 non-null  int64 - # de Adultos na reserva *
+ 6   children                        113406 non-null  float64 - # de Crianças na reserva *
+ 7   babies                          113409 non-null  int64 - # de bebês na reserva *
+ 
+ Tamanho da familia a se hospedar, proporção de adultos
+
+ 8   meal                            113409 non-null  object - tipo de plano de refeições
+ 15  reserved_room_type              113409 non-null  object - tipo de reserva desejada *
+ 16  assigned_room_type              113409 non-null  object - tipo de reserva obtida *
+ 24  required_car_parking_spaces     113409 non-null  int64  - # de vagas de estacionamento 
+ 25  total_of_special_requests       113409 non-null  int64  - # total de pedidos adicionais *
+
+ Nova hipótese: tendencia de cancelamento quando não obtém o tipo desejado, pode encontrar outro hotel com o perfil desejado.
+ Nova hipótese: nem todo o hotel pode oferecer os 'special requests' desejados, o cliente terá uma tendência de menos cancelamento. Verificar se campo é o desejo ou a realidade.
+
+ 10  market_segment                  113409 non-null  object  - # Segmentação da Origem Reserva ?
+ 22  customer_type                   113409 non-null  object  - # Segmentação de Clientes 
+ 20  company                         6437 non-null    float64 - # Reserva é corporativa *
+
+ Meia-nova hipótese: companhias devem cancelar menos pois são menos sensíveis as condições economcias, socias bla bla.
+ Investigar: o que acontece se eu tento trocar uma reserva em um Tour Operator? Será que eu perco? Consigo trocar a data?
+
+ 12  is_repeated_guest               113409 non-null  int64  
+ 13  previous_cancellations          113409 non-null  int64  
+ 14  previous_bookings_not_canceled  113409 non-null  int64  
+ 17  booking_changes                 113409 non-null  int64 
+ 9   country                         112951 non-null  object 
+ 11  distribution_channel            113409 non-null  object 
+ 18  deposit_type                    113409 non-null  object 
+ 19  agent                           97918 non-null   float64
+ 21  days_in_waiting_list            113409 non-null  int64  
+ 23  adr                             113409 non-null  float64
+ 26  reservation_status_date         113409 non-null  object 
+ 27  arrival_date                    113409 non-null  object 
+ 28  id_booking                      113409 non-null  int64  
+
+dtypes: float64(4), int64(14), object(11)
+memory usage: 25.1+ MB
