@@ -34,16 +34,21 @@ Data columns (total 29 columns):
  Meia-nova hipótese: companhias devem cancelar menos pois são menos sensíveis as condições economcias, socias bla bla.
  Investigar: o que acontece se eu tento trocar uma reserva em um Tour Operator? Será que eu perco? Consigo trocar a data?
 
- 12  is_repeated_guest               113409 non-null  int64  
- 13  previous_cancellations          113409 non-null  int64  
- 14  previous_bookings_not_canceled  113409 non-null  int64  
- 17  booking_changes                 113409 non-null  int64 
- 9   country                         112951 non-null  object 
- 11  distribution_channel            113409 non-null  object 
- 18  deposit_type                    113409 non-null  object 
- 19  agent                           97918 non-null   float64
- 21  days_in_waiting_list            113409 non-null  int64  
- 23  adr                             113409 non-null  float64
+ 12  is_repeated_guest               113409 non-null  int64  Inteiro indicando se é um hóspede que já fez uma reserva no passado
+ 13  previous_cancellations          113409 non-null  int64 - # de cancelamentos antes da reserva atual
+ 14  previous_bookings_not_canceled  113409 non-null  int64 - # de NÃO cancelamentos antes da reserva atual
+ 17  booking_changes                 113409 non-null  int64 - # de alterações na reserva desde o registro da mesma até a data de checkin/cancelamento.
+ 
+ Nova hipótese: Um cliente faz novamente uma reserva, sendo que que já usufruiu de uma no passado, tende a não cancelar. Similarmente, o que já cancelou reservas no passado, tem maiores chances de cancelar. Acredito que essa hipótese pode ser representada por uma transformação nas colunas 'previous_cancelations' e 'previous_bookings_not_canceled' (média talvez? Uma subtração?).
+ 
+ Outra nova hipótese: Um cliente que possui um longo lead time mas faz alterações na reserva, parece seguir interessado na reserva, logo menos chances de cancelar.
+ 
+ 9   country                         112951 non-null  object - País de origem no formato ISO 3155–3:2013
+ 11  distribution_channel            113409 non-null  object - Meio de aquisição da reserva: TA (Travel Agents), TO (Tour Operators)
+ 18  deposit_type                    113409 non-null  object - Indica a forma de pagamento da reserva (No Deposit, Non Refund, Refundable)
+ 19  agent                           97918 non-null   float64 - Id da Agencia de Viagens que fez a reserva
+ 21  days_in_waiting_list            113409 non-null  int64  - # dias entre a reserva entrar no sistema e o hospede confirmar.
+ 23  adr                             113409 non-null  float64 - TODO: Too complex for my current state of mind. Read later.
  26  reservation_status_date         113409 non-null  object 
  27  arrival_date                    113409 non-null  object 
  28  id_booking                      113409 non-null  int64  
