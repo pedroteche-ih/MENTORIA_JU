@@ -34,24 +34,32 @@ Data columns (total 29 columns):
  Meia-nova hipótese: companhias devem cancelar menos pois são menos sensíveis as condições economcias, socias bla bla.
  Investigar: o que acontece se eu tento trocar uma reserva em um Tour Operator? Será que eu perco? Consigo trocar a data?
 
- 12  is_repeated_guest               113409 non-null  int64  Inteiro indicando se é um hóspede que já fez uma reserva no passado
- 13  previous_cancellations          113409 non-null  int64 - # de cancelamentos antes da reserva atual
- 14  previous_bookings_not_canceled  113409 non-null  int64 - # de NÃO cancelamentos antes da reserva atual
- 17  booking_changes                 113409 non-null  int64 - # de alterações na reserva desde o registro da mesma até a data de checkin/cancelamento.
+ 12  is_repeated_guest               113409 non-null  int64  Inteiro indicando se é um hóspede que já fez uma reserva no passado *
+ 13  previous_cancellations          113409 non-null  int64 - # de cancelamentos antes da reserva atual * 
+ 14  previous_bookings_not_canceled  113409 non-null  int64 - # de NÃO cancelamentos antes da reserva atual *
+ 17  booking_changes                 113409 non-null  int64 - # de alterações na reserva desde o registro da mesma até a data de checkin/cancelamento. *
  
- Nova hipótese: Um cliente faz novamente uma reserva, sendo que que já usufruiu de uma no passado, tende a não cancelar. Similarmente, o que já cancelou reservas no passado, tem maiores chances de cancelar. Acredito que essa hipótese pode ser representada por uma transformação nas colunas 'previous_cancelations' e 'previous_bookings_not_canceled' (média talvez? Uma subtração?).
+ Nova hipótese: Um cliente que faz novamente uma reserva, sendo que que já usufruiu de uma no passado, tende a não cancelar. Similarmente, o que já cancelou reservas no passado, tem maiores chances de cancelar. Acredito que essa hipótese pode ser representada por uma transformação nas colunas 'previous_cancelations' e 'previous_bookings_not_canceled' (média talvez? Uma subtração?).
  
- Outra nova hipótese: Um cliente que possui um longo lead time mas faz alterações na reserva, parece seguir interessado na reserva, logo menos chances de cancelar.
+ Complemento à hipótese sobre o Lead Time: Um cliente que possui um longo lead time mas faz alterações na reserva, parece seguir interessado na reserva, logo menos chances de cancelar.
  
- 9   country                         112951 non-null  object - País de origem no formato ISO 3155–3:2013
+ 9   country                         112951 non-null  object - País de origem do cliente no formato ISO 3155–3:2013 ?
  11  distribution_channel            113409 non-null  object - Meio de aquisição da reserva: TA (Travel Agents), TO (Tour Operators)
- 18  deposit_type                    113409 non-null  object - Indica a forma de pagamento da reserva (No Deposit, Non Refund, Refundable)
+ 18  deposit_type                    113409 non-null  object - Indica a forma de pagamento da reserva (No Deposit, Non Refund, Refundable) ?
  19  agent                           97918 non-null   float64 - Id da Agencia de Viagens que fez a reserva
- 21  days_in_waiting_list            113409 non-null  int64  - # dias entre a reserva entrar no sistema e o hospede confirmar.
- 23  adr                             113409 non-null  float64 - TODO: Too complex for my current state of mind. Read later.
- 26  reservation_status_date         113409 non-null  object 
- 27  arrival_date                    113409 non-null  object 
- 28  id_booking                      113409 non-null  int64  
+ 
+Nesse bloco, tenho dúvidas: 
+** Sobre a coluna 'country', até tenho uma suposição fraca de que clientes de Portugal podem ter mais chances de cancelamento que um cliente de outro país, pois alguém que se desloca do próprio país pra ir a outro realmente deve ter algum bom motivo, portanto menos chances de cancelamento... Mas se pensar com calma, existem vários contra-exemplos e essa suposição não se sustenta.
+
+** Sobre a coluna deposit_type, o que parece bastante óbvio é que um cliente que não fez nenhum depósito para garantir sua reserva pode ou cancelar ou perder sua reserva pra algum outro cliente que fez depósito dependendo das políticas do hotel. Mas e quanto ao Non Refund e Refundable? No manual diz apenas se o cliente fez o depósito no valor total (Non Refund) ou uma parcela do total (Refundable), nada é dito sobre devolução ou não de dinehiro a não ser pelo nome das colunas, devo confiar?
+ 
+ 21  days_in_waiting_list            113409 non-null  int64  - # dias entre a reserva entrar no sistema e o hospede confirmar. *
+ 23  adr                             113409 non-null  float64 - Não sei se entendi bem, mas me parece a razão entre o valor bruto dos quartos que o hotel possui sobre a quantidade de vendas desses quartos. E isso seria útil para comparar as vendas com outros hoteis competidores (talvez pra saber quando fazer promoções?). Outra observação, não parece ser um dado relacionado ao cliente, mas sim ao momento do hotel em relação a esta reserva em específico. *
+ 26  reservation_status_date         113409 non-null  object - Data da ultima mudança de status da reserva (É normal não ter o reservation_status?)
+ 27  arrival_date                    113409 non-null  object - Não consta no manual dos dados, provavelmente é uma agragação de ArrivalDateWeekNumber, ArrivalDateOfMonth, ArrivalDateYear. *
+ 28  id_booking                      113409 non-null  int64 - Não consta no manual dos dados, mas parece autoexplicativo.
+ 
+ 
 
 dtypes: float64(4), int64(14), object(11)
 memory usage: 25.1+ MB
